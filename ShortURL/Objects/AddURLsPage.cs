@@ -20,7 +20,6 @@ namespace ShortURL.Objects
         public IWebElement InputShortCodeBox => driver.FindElement(By.XPath("//input[@id='code']"));
         public IWebElement CreateButton => driver.FindElement(By.XPath("//button[contains(.,'Create')]"));
 
-        // направи отделен елемент за всеки вид еррор мсдж
         public IWebElement ErrorField => driver.FindElement(By.XPath("//div[@class='err']"));
 
         public void ClickOnCreateButton()
