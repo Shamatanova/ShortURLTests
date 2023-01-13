@@ -14,7 +14,6 @@ namespace ShortURL.Objects
         }
         public override string PageURL => "http://localhost:8080/";
 
-        // бих добавил .Text на тези елемени и да махнеш методите
         public IWebElement ShortUrlsCount => driver.FindElement(By.XPath("//li[1]/text()/following-sibling::b"));
         public IWebElement VisitorsCount => driver.FindElement(By.XPath("//li[2]/text()/following-sibling::b"));
 

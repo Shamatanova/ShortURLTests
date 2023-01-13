@@ -14,10 +14,15 @@ namespace ShortURL.TestsUI
     {
 
         string testUrl = GenerateUniqueUrl();
+        string newTestUrl = GenerateUniqueUrl();
         string testShortCode = GenerateUniqueShortCode();
+        string newTestShortCode = GenerateUniqueShortCode();
+        string testShortCodeWithSpecialSymbols = GenerateUniqueShortCodeWithSpecialSymbols();
+        string testUrlWithSpecialSymbols = GenerateUniqueUrlWithSpecialSymbols();
 
-        //string testURL = "https://nakov.com";
-        //string testShortCode = "FZKnMg2Qt";
+        const string alreadyUsedUrl = "https://selenium.dev";
+        const string alreadyUsedShortCode = "nak";
+
 
 
         [Test]
@@ -101,8 +106,6 @@ namespace ShortURL.TestsUI
         [Test]
         public void TryToCreateNewShortURLWithSameURLAndDifferentShortCode()
         {
-            var newShortCode = GenerateUniqueShortCode();
-
             var homePage = new HomePage(driver);
             homePage.Open();
             int numberOfShortURLs = homePage.NumberOfUrls();
@@ -111,7 +114,7 @@ namespace ShortURL.TestsUI
             addUrlPage.Open();
 
             addUrlPage.EnterUrlField(testUrl);
-            addUrlPage.EnterShortCodeField(newShortCode);
+            addUrlPage.EnterShortCodeField(newTestShortCode);
             addUrlPage.ClickOnCreateButton();
 
             var shortUrls = driver.FindElements((By.XPath("//tr")));
@@ -120,7 +123,7 @@ namespace ShortURL.TestsUI
 
             foreach (var item in shortUrls)
             {
-                if (item.Text.Contains(testUrl) && item.Text.Contains(newShortCode))
+                if (item.Text.Contains(testUrl) && item.Text.Contains(newTestShortCode))
                 {
                     isItFind = true;
                 }
@@ -140,8 +143,6 @@ namespace ShortURL.TestsUI
         [Test]
         public void TryToCreateNewShortURLWithDifferentURLAndSameShortCode()
         {
-            var newUrl = GenerateUniqueUrl();
-
             var homePage = new HomePage(driver);
             homePage.Open();
             int numberOfShortUrls = homePage.NumberOfUrls();
@@ -149,7 +150,7 @@ namespace ShortURL.TestsUI
             var addUrlPage = new AddURLsPage(driver);
             addUrlPage.Open();
 
-            addUrlPage.EnterUrlField(newUrl);
+            addUrlPage.EnterUrlField(newTestUrl);
             addUrlPage.EnterShortCodeField(testShortCode);
             addUrlPage.ClickOnCreateButton();
 
@@ -165,7 +166,7 @@ namespace ShortURL.TestsUI
 
             foreach (var item in shortUrls)
             {
-                if (item.Text.Contains(newUrl) && item.Text.Contains(testShortCode))
+                if (item.Text.Contains(newTestUrl) && item.Text.Contains(testShortCode))
                 {
                     isItFind = true;
                 }
@@ -218,8 +219,6 @@ namespace ShortURL.TestsUI
         [Test]
         public void TryToCreateNewShortURLWithSpecialSymbolsInURL()
         {
-            var testUrlWithSpecialSymbols = GenerateUniqueUrlWithSpecialSymbols();
-
             var homePage = new HomePage(driver);
             homePage.Open();
             int numberOfShortURLs = homePage.NumberOfUrls();
@@ -242,8 +241,6 @@ namespace ShortURL.TestsUI
         [Test]
         public void TryToCreateNewShortURLWithSpecialSymbolsInShortCode()
         {
-            var testShortCodeWithSpecialSymbols = GenerateUniqueShortCodeWithSpecialSymbols();
-
             var addUrlPage = new AddURLsPage(driver);
             addUrlPage.Open();
 
@@ -260,9 +257,6 @@ namespace ShortURL.TestsUI
         [Test]
         public void TryToCreateNewShortURLWithAlreadyUsedShortCodeAndURL()
         {
-            var alreadyUsedUrl = "https://selenium.dev";
-            var alreadyUsedShortCode = "nak";
-
             var addUrlPage = new AddURLsPage(driver);
             addUrlPage.Open();
 

@@ -18,8 +18,5 @@ namespace ShortURL.Objects
         
         public ReadOnlyCollection<IWebElement> ShortUrls => driver.FindElements(By.XPath("//tr"));
 
-       
-
-
     }
 }
